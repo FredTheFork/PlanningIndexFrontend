@@ -1,0 +1,179 @@
+.pima-admin-wrap {
+    max-width: 1200px;
+}
+
+.pima-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.pima-filters {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.pima-filters label {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pima-filters label span {
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.pima-filters input,
+.pima-filters select {
+    min-width: 160px;
+}
+
+.pima-members-table th,
+.pima-members-table td {
+    vertical-align: top;
+}
+
+.pima-status {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.pima-status-active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.pima-status-cancelled,
+.pima-status-admin_cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.pima-status-expired {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* Modal */
+.pima-modal {
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+}
+
+.pima-modal-content {
+    background-color: #fff;
+    margin: 40px auto;
+    padding: 0;
+    border-radius: 4px;
+    width: 600px;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.pima-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #c3c4c7;
+    background: #f6f7f7;
+}
+
+.pima-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.pima-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #646970;
+    line-height: 1;
+}
+
+.pima-modal-close:hover {
+    color: #1d2327;
+}
+
+.pima-modal-body {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.pima-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #c3c4c7;
+    background: #f6f7f7;
+}
+
+.pima-field-group {
+    margin-bottom: 15px;
+}
+
+.pima-field-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.pima-field-group input,
+.pima-field-group select,
+.pima-field-group textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+.pima-readonly-field {
+    padding: 6px 0;
+    color: #3c434a;
+    font-size: 13px;
+}
+
+.pima-message {
+    font-weight: 600;
+    font-size: 13px;
+    margin-right: auto;
+}
+
+.pima-message.success {
+    color: #008a20;
+}
+
+.pima-message.error {
+    color: #d63638;
+}
+
+#pima-edit-councils {
+    min-height: 160px;
+}
+
+/* Loading state */
+.pima-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

@@ -1,0 +1,2157 @@
+/* =========================================
+   Planning Index - Modern Professional Design
+   Navy + Orange Accents
+   ========================================= */
+
+:root {
+  /* Core palette - Navy with Orange accents */
+  --pi-bg: #f8fafc;
+  --pi-card-bg: #ffffff;
+  --pi-text: #1e293b;
+  --pi-text-muted: #64748b;
+  --pi-text-light: #94a3b8;
+  --pi-border: #e2e8f0;
+  --pi-border-light: #f1f5f9;
+  
+  /* Navy accent - matching website theme */
+  --pi-accent: #1b2534;
+  --pi-accent-light: #2d3a4d;
+  --pi-accent-dark: #111827;
+  --pi-accent-bg: rgba(27, 37, 52, 0.08);
+  --pi-accent-border: rgba(27, 37, 52, 0.2);
+  
+  /* CTA Orange accent for workspace buttons */
+  --pi-cta: #f97316;
+  --pi-cta-dark: #ea580c;
+  --pi-cta-bg: rgba(249, 115, 22, 0.08);
+  --pi-cta-border: rgba(249, 115, 22, 0.2);
+  
+  /* Interactive states */
+  --pi-hover-bg: #f1f5f9;
+  --pi-focus-ring: rgba(27, 37, 52, 0.4);
+  
+  /* Shadows */
+  --pi-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --pi-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --pi-shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --pi-shadow-xl: 0 16px 48px rgba(15, 23, 42, 0.12);
+  
+  /* Layout */
+  --pi-radius: 12px;
+  --pi-radius-sm: 8px;
+  --pi-radius-lg: 16px;
+  --pi-max-width: 1400px;
+  
+  /* Typography */
+  --pi-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Reset & Base */
+#pi-search *,
+#pi-search *::before,
+#pi-search *::after {
+  box-sizing: border-box;
+}
+
+#pi-search {
+  font-family: var(--pi-font);
+  color: var(--pi-text);
+  background: var(--pi-bg);
+  border-radius: var(--pi-radius-lg);
+  padding: 40px 24px;
+  max-width: var(--pi-max-width);
+  margin: 0 auto;
+}
+
+/* ==================== HEADER ==================== */
+.pi-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pi-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--pi-text);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.pi-subtitle {
+  font-size: 1rem;
+  color: var(--pi-text-muted);
+  margin: 0;
+}
+
+/* ==================== SEARCH BAR ==================== */
+.pi-search-bar {
+  display: flex;
+  gap: 12px;
+  max-width: 700px;
+  margin: 0 auto 24px;
+}
+
+.pi-search-input-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.pi-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--pi-text-muted);
+  pointer-events: none;
+}
+
+#pi-keyword {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  font-size: 1rem;
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius);
+  background: var(--pi-card-bg);
+  color: var(--pi-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#pi-keyword:focus {
+  outline: none;
+  border-color: var(--pi-accent);
+  box-shadow: 0 0 0 3px var(--pi-focus-ring);
+}
+
+#pi-keyword::placeholder {
+  color: var(--pi-text-light);
+}
+
+#pi-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--pi-accent);
+  border: none;
+  border-radius: var(--pi-radius);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+#pi-search-btn:hover {
+  background: var(--pi-accent-dark);
+  transform: translateY(-1px);
+}
+
+#pi-search-btn:active {
+  transform: translateY(0);
+}
+
+/* ==================== FILTERS SECTION ==================== */
+.pi-filters-section {
+  max-width: 700px;
+  margin: 0 auto 20px;
+}
+
+.pi-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pi-toggle-btn:hover {
+  background: var(--pi-hover-bg);
+  color: var(--pi-text);
+}
+
+.pi-toggle-btn.active {
+  background: var(--pi-accent-bg);
+  border-color: var(--pi-accent-border);
+  color: var(--pi-accent);
+}
+
+.pi-chevron {
+  transition: transform 0.2s;
+}
+
+.pi-toggle-btn.active .pi-chevron {
+  transform: rotate(180deg);
+}
+
+.pi-filter-count {
+  display: none;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--pi-accent);
+  border-radius: 10px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.pi-filter-count.visible {
+  display: inline-block;
+}
+
+.pi-filters {
+  display: none;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 20px;
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius);
+}
+
+.pi-filters.open {
+  display: flex;
+}
+
+.pi-filter-group {
+  flex: 1;
+  min-width: 160px;
+}
+
+.pi-filter-group label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  margin-bottom: 6px;
+}
+
+.pi-filters select,
+.pi-filters input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  background: var(--pi-bg);
+  color: var(--pi-text);
+  transition: border-color 0.2s;
+}
+
+.pi-filters select:focus,
+.pi-filters input[type="date"]:focus {
+  outline: none;
+  border-color: var(--pi-accent);
+}
+
+/* ==================== MULTI-SELECT DROPDOWN ==================== */
+.pi-multiselect {
+  position: relative;
+  width: 100%;
+}
+
+.pi-multiselect-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  background: var(--pi-bg);
+  color: var(--pi-text);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  text-align: left;
+}
+
+.pi-multiselect-toggle:hover {
+  border-color: var(--pi-accent-border);
+}
+
+.pi-multiselect-toggle.open {
+  border-color: var(--pi-accent);
+}
+
+.pi-multiselect-chevron {
+  transition: transform 0.2s;
+  color: var(--pi-text-muted);
+  flex-shrink: 0;
+}
+
+.pi-multiselect-toggle.open .pi-multiselect-chevron {
+  transform: rotate(180deg);
+}
+
+.pi-multiselect-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pi-multiselect-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  min-width: 240px;
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  box-shadow: var(--pi-shadow-lg);
+  z-index: 200;
+  max-height: 320px;
+  display: none;
+  flex-direction: column;
+}
+
+.pi-multiselect-dropdown.open {
+  display: flex;
+}
+
+.pi-multiselect-search-wrap {
+  padding: 8px;
+  border-bottom: 1px solid var(--pi-border-light);
+}
+
+.pi-multiselect-search {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.8125rem;
+  border: 1px solid var(--pi-border);
+  border-radius: 6px;
+  background: var(--pi-bg);
+  color: var(--pi-text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.pi-multiselect-search:focus {
+  border-color: var(--pi-accent);
+}
+
+.pi-multiselect-actions {
+  display: flex;
+  gap: 8px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--pi-border-light);
+}
+
+.pi-multiselect-action {
+  flex: 1;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--pi-accent);
+  background: none;
+  border: 1px solid var(--pi-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pi-multiselect-action:hover {
+  background: var(--pi-accent-bg);
+}
+
+.pi-multiselect-options {
+  overflow-y: auto;
+  max-height: 220px;
+  padding: 4px 0;
+}
+
+.pi-multiselect-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-size: 0.8125rem;
+  color: var(--pi-text);
+  border-radius: 4px;
+  margin: 2px 6px;
+}
+
+.pi-multiselect-option:hover {
+  background: var(--pi-hover-bg);
+}
+
+.pi-multiselect-option input[type="checkbox"] {
+  display: none;
+}
+
+.pi-multiselect-checkbox {
+  display: none;
+}
+
+/* Selected state: darken the row background */
+.pi-multiselect-option.selected,
+.pi-multiselect-option:has(input[type="checkbox"]:checked) {
+  background: var(--pi-accent);
+  color: #fff;
+}
+
+.pi-multiselect-option:has(input[type="checkbox"]:checked):hover {
+  background: var(--pi-accent-light);
+}
+
+.pi-multiselect-option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pi-multiselect-loading,
+.pi-multiselect-no-results {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--pi-text-muted);
+}
+
+.pi-filter-group-authority {
+  min-width: 200px;
+}
+
+.pi-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-end;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--pi-accent);
+  border: none;
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.pi-clear-btn:hover {
+  background: var(--pi-accent-dark);
+  transform: translateY(-1px);
+}
+
+.pi-clear-btn:active {
+  transform: translateY(0);
+}
+
+/* ==================== QUICK FILTERS ==================== */
+.pi-quick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 700px;
+  margin: 0 auto 24px;
+}
+
+.pi-quick-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+}
+
+.pi-quick-chip {
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pi-quick-chip:hover {
+  background: var(--pi-hover-bg);
+  color: var(--pi-text);
+}
+
+.pi-quick-chip.active {
+  background: var(--pi-accent);
+  color: #fff;
+  border-color: var(--pi-accent);
+}
+
+/* ==================== TOOLBAR ==================== */
+.pi-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: var(--pi-max-width);
+  margin: 0 auto 24px;
+  padding: 0 4px;
+}
+
+.pi-results-info {
+  font-size: 0.875rem;
+  color: var(--pi-text-muted);
+}
+
+#pi-results-count {
+  font-weight: 500;
+}
+
+.pi-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pi-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pi-toolbar-btn:hover {
+  background: var(--pi-hover-bg);
+  color: var(--pi-text);
+}
+
+.pi-saved-searches {
+  position: relative;
+}
+
+.pi-saved-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius);
+  box-shadow: var(--pi-shadow-lg);
+  z-index: 100;
+}
+
+.pi-saved-dropdown.open {
+  display: block;
+}
+
+.pi-saved-header {
+  padding: 12px 16px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--pi-text-muted);
+  border-bottom: 1px solid var(--pi-border-light);
+}
+
+#pi-saved-list {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.pi-saved-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.pi-saved-item:hover {
+  background: var(--pi-hover-bg);
+}
+
+.pi-saved-item-name {
+  font-size: 0.875rem;
+  color: var(--pi-text);
+}
+
+.pi-saved-item-delete {
+  padding: 4px;
+  color: var(--pi-text-light);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.pi-saved-item:hover .pi-saved-item-delete {
+  opacity: 1;
+}
+
+.pi-saved-item-delete:hover {
+  color: #ef4444;
+}
+
+.pi-saved-empty {
+  padding: 20px 16px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--pi-text-light);
+}
+
+.pi-sort-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pi-sort-wrap label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+}
+
+#pi-sort {
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  background: var(--pi-card-bg);
+  color: var(--pi-text);
+  cursor: pointer;
+}
+
+/* ==================== RESULTS GRID ==================== */
+#pi-results {
+  max-width: var(--pi-max-width);
+  margin: 0 auto;
+}
+
+#pi-results.pi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1400px) {
+  #pi-results.pi-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  #pi-results.pi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  #pi-results.pi-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  #pi-results.pi-grid .pi-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* ==================== CARD ==================== */
+.pi-card {
+  position: relative;
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius);
+  box-shadow: var(--pi-shadow-sm);
+  overflow: visible;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.pi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pi-shadow);
+}
+
+.pi-card.pi-card-added {
+  border-color: var(--pi-accent-border);
+  background: linear-gradient(to bottom, var(--pi-accent-bg) 0%, var(--pi-card-bg) 100%);
+}
+
+.pi-card-inner {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 280px;
+  border-radius: var(--pi-radius);
+  overflow: hidden;
+  background: inherit;
+}
+
+.pi-card-header {
+  margin-bottom: 12px;
+}
+
+.pi-card-council {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pi-accent);
+  background: var(--pi-accent-bg);
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.pi-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pi-text);
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pi-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8125rem;
+  color: var(--pi-text-muted);
+  margin-bottom: 12px;
+}
+
+.pi-card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pi-card-desc {
+  flex: 1;
+  font-size: 0.875rem;
+  color: var(--pi-text-muted);
+  line-height: 1.6;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: 16px;
+}
+
+.pi-card-desc:empty::after {
+  content: "No description available";
+  font-style: italic;
+  color: var(--pi-text-light);
+}
+
+.pi-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.pi-card-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.pi-add-to-workspace {
+  color: var(--pi-cta);
+  background: var(--pi-cta-bg);
+  border: 1px solid var(--pi-cta-border);
+}
+
+.pi-add-to-workspace:hover {
+  background: var(--pi-cta);
+  color: #fff;
+}
+
+.pi-add-to-workspace.added {
+  background: var(--pi-cta);
+  color: #fff;
+  border-color: var(--pi-cta);
+  pointer-events: none;
+}
+
+.pi-add-to-workspace.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.pi-view-details {
+  color: var(--pi-text-muted);
+  background: var(--pi-bg);
+  border: 1px solid var(--pi-border);
+}
+
+.pi-view-details:hover {
+  background: var(--pi-hover-bg);
+  color: var(--pi-text);
+}
+
+/* ==================== SKELETON LOADING ==================== */
+.pi-skeleton-grid {
+  max-width: var(--pi-max-width);
+  margin: 0 auto;
+}
+
+.pi-skeleton-card {
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius);
+  padding: 20px;
+  min-height: 280px;
+}
+
+.pi-skel-title,
+.pi-skel-meta,
+.pi-skel-desc,
+.pi-skel-actions {
+  background: linear-gradient(90deg, var(--pi-border-light) 25%, var(--pi-border) 50%, var(--pi-border-light) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+.pi-skel-title {
+  height: 20px;
+  width: 80%;
+  margin-bottom: 16px;
+}
+
+.pi-skel-meta {
+  height: 14px;
+  width: 60%;
+  margin-bottom: 12px;
+}
+
+.pi-skel-desc {
+  height: 60px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.pi-skel-actions {
+  height: 40px;
+  width: 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ==================== EMPTY STATE ==================== */
+.pi-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--pi-text-muted);
+}
+
+.pi-empty-state svg {
+  margin-bottom: 16px;
+  color: var(--pi-border);
+}
+
+.pi-empty-state h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--pi-text);
+  margin: 0 0 8px;
+}
+
+.pi-empty-state p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* ==================== LOAD MORE ==================== */
+#pi-load-more-wrap {
+  text-align: center;
+  margin-top: 32px;
+}
+
+#pi-load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--pi-text);
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#pi-load-more:hover {
+  background: var(--pi-hover-bg);
+  border-color: var(--pi-text-light);
+}
+
+#pi-load-more .pi-load-spinner {
+  display: none;
+  animation: spin 1s linear infinite;
+}
+
+#pi-load-more.loading .pi-load-text {
+  display: none;
+}
+
+#pi-load-more.loading .pi-load-spinner {
+  display: block;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==================== MODAL ==================== */
+.pi-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;      /* dynamic viewport height for mobile */
+  margin: 0 !important;
+  padding: 0 !important;
+  background: rgba(15, 23, 42, 0.6);  /* semi-transparent navy overlay */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999999 !important;
+  display: none;                      /* hidden by default, shown via JS */
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  overflow: hidden;                   /* prevent scroll on overlay itself */
+  box-sizing: border-box;
+}
+
+/* When overlay is shown */
+.pi-modal-overlay.open,
+.pi-modal-overlay[style*="display: flex"] {
+  display: flex !important;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* The modal box itself - absolutely centered */
+.pi-modal {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: calc(100% - 2rem);
+  max-width: 640px;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);    /* dynamic viewport for mobile */
+  margin: 0 !important;
+  background: var(--pi-card-bg);
+  border-radius: var(--pi-radius-lg);
+  box-shadow: var(--pi-shadow-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000000 !important;
+  animation: modalSlide 0.25s ease-out;
+}
+
+/* Scrollable content inside modal */
+.pi-modal-content {
+  padding: 32px;
+  overflow-y: auto;
+  flex: 1;                            /* grows to fill available space */
+  -webkit-overflow-scrolling: touch;  /* smooth scrolling on iOS */
+}
+
+/* Close button stays in top-right */
+.pi-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+/* Optional: if modal is very small, still center it perfectly */
+.pi-modal-sm {
+  max-width: 420px;
+}
+
+/* Animation - adjusted for centered positioning */
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+}
+
+.pi-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pi-bg);
+  border: none;
+  border-radius: 50%;
+  color: var(--pi-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  z-index: 10;
+}
+
+.pi-modal-close:hover {
+  background: var(--pi-border);
+  color: var(--pi-text);
+}
+
+.pi-modal-content {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.pi-modal-header {
+  margin-bottom: 20px;
+}
+
+.pi-modal-council {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pi-accent);
+  background: var(--pi-accent-bg);
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.pi-modal-title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--pi-text);
+  line-height: 1.3;
+  margin: 0;
+  padding-right: 40px;
+}
+
+.pi-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--pi-border-light);
+}
+
+.pi-modal-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--pi-text-muted);
+}
+
+.pi-modal-meta-item svg {
+  color: var(--pi-text-light);
+}
+
+.pi-modal-body {
+  font-size: 0.9375rem;
+  color: var(--pi-text);
+  line-height: 1.7;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.pi-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pi-modal-body::-webkit-scrollbar-thumb {
+  background: var(--pi-border);
+  border-radius: 3px;
+}
+
+.pi-modal-body p {
+  margin: 0 0 12px;
+}
+
+.pi-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--pi-border-light);
+}
+
+.pi-modal-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--pi-accent);
+  border: none;
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.pi-modal-add-btn:hover {
+  background: var(--pi-accent-dark);
+  transform: translateY(-1px);
+}
+
+.pi-modal-add-btn.added {
+  background: var(--pi-accent-dark);
+  pointer-events: none;
+}
+
+.pi-modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  background: var(--pi-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.pi-modal-link:hover {
+  background: var(--pi-hover-bg);
+  color: var(--pi-text);
+}
+
+/* Save Modal Specific */
+.pi-save-desc {
+  font-size: 0.875rem;
+  color: var(--pi-text-muted);
+  margin: 0 0 20px;
+}
+
+.pi-save-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  background: var(--pi-bg);
+  color: var(--pi-text);
+  transition: border-color 0.2s;
+  margin-bottom: 24px;
+}
+
+.pi-save-input:focus {
+  outline: none;
+  border-color: var(--pi-accent);
+}
+
+.pi-save-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.pi-btn-secondary {
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  background: var(--pi-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pi-btn-secondary:hover {
+  background: var(--pi-border-light);
+}
+
+.pi-btn-primary {
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--pi-accent);
+  border: none;
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.pi-btn-primary:hover {
+  background: var(--pi-accent-dark);
+}
+
+/* ==================== VIEW TOGGLE ==================== */
+.pi-view-toggle {
+  display: inline-flex;
+  background: var(--pi-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  padding: 4px;
+  gap: 4px;
+}
+
+.pi-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pi-view-btn:hover {
+  color: var(--pi-text);
+  background: var(--pi-hover-bg);
+}
+
+.pi-view-btn.active {
+  color: var(--pi-accent);
+  background: var(--pi-accent-bg);
+}
+
+/* ==================== MAP CONTAINER ==================== */
+.pi-map-container {
+  max-width: var(--pi-max-width);
+  margin: 0 auto;
+  position: relative;
+  border-radius: var(--pi-radius);
+  overflow: hidden;
+  border: 1px solid var(--pi-border);
+  background: var(--pi-card-bg);
+}
+
+.pi-map {
+  width: 100%;
+  height: 600px;
+  border-radius: var(--pi-radius);
+}
+
+@media (max-width: 768px) {
+  .pi-map {
+    height: 450px;
+  }
+}
+
+.pi-map-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--pi-card-bg);
+  color: var(--pi-text-muted);
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.pi-map-loading.hidden {
+  display: none;
+}
+
+.pi-map-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.pi-map-notice {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--pi-card-bg);
+  text-align: center;
+  padding: 24px;
+  z-index: 10;
+}
+
+.pi-map-notice svg {
+  color: var(--pi-border);
+}
+
+.pi-map-notice h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--pi-text);
+  margin: 0;
+}
+
+.pi-map-notice p {
+  font-size: 0.875rem;
+  color: var(--pi-text-muted);
+  margin: 0;
+  max-width: 320px;
+}
+
+/* ==================== MAP POPUP ==================== */
+.pi-map-popup {
+  max-width: 320px !important;
+}
+
+.pi-map-popup .mapboxgl-popup-content {
+  padding: 0;
+  border-radius: var(--pi-radius);
+  box-shadow: var(--pi-shadow-lg);
+  overflow: hidden;
+}
+
+.pi-map-popup .mapboxgl-popup-close-button {
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  color: var(--pi-text-muted);
+  right: 4px;
+  top: 4px;
+}
+
+.pi-map-popup .mapboxgl-popup-close-button:hover {
+  color: var(--pi-text);
+  background: transparent;
+}
+
+.pi-popup-card {
+  padding: 16px;
+}
+
+.pi-popup-council {
+  display: inline-flex;
+  padding: 3px 8px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pi-accent);
+  background: var(--pi-accent-bg);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.pi-popup-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--pi-text);
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+
+.pi-popup-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: var(--pi-text-muted);
+  margin-bottom: 12px;
+}
+
+.pi-popup-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pi-popup-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--pi-border-light);
+}
+
+.pi-popup-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pi-popup-add {
+  color: var(--pi-cta);
+  background: var(--pi-cta-bg);
+  border: 1px solid var(--pi-cta-border);
+}
+
+.pi-popup-add:hover {
+  background: var(--pi-cta);
+  color: #fff;
+}
+
+.pi-popup-add.added {
+  background: var(--pi-cta);
+  color: #fff;
+  border-color: var(--pi-cta);
+  pointer-events: none;
+}
+
+.pi-popup-details {
+  color: var(--pi-text-muted);
+  background: var(--pi-bg);
+  border: 1px solid var(--pi-border);
+}
+
+.pi-popup-details:hover {
+  background: var(--pi-hover-bg);
+  color: var(--pi-text);
+}
+
+/* ==================== MAP POPUP ARROW ==================== */
+.pi-map-popup .mapboxgl-popup-tip {
+  border-top-color: var(--pi-card-bg);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  #pi-search {
+    padding: 24px 16px;
+  }
+  
+  .pi-title {
+    font-size: 1.5rem;
+  }
+  
+  .pi-search-bar {
+    flex-direction: column;
+  }
+  
+  #pi-search-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .pi-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .pi-toolbar-actions {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .pi-view-toggle {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  
+  .pi-view-btn {
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .pi-quick-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+  }
+  
+  .pi-quick-chip {
+    white-space: nowrap;
+  }
+  
+  .pi-modal-content {
+    padding: 24px 20px;
+  }
+  
+  .pi-modal-actions {
+    flex-direction: column;
+  }
+  
+  .pi-modal-add-btn,
+  .pi-modal-link {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .pi-popup-card {
+    padding: 12px;
+  }
+  
+  .pi-popup-actions {
+    flex-direction: column;
+  }
+}
+
+/* ==================== HEADER WITH MY APPS BUTTON ==================== */
+.pi-header-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pi-header-content {
+  text-align: center;
+}
+
+.pi-my-apps-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pi-my-apps-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pi-accent);
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-accent-border);
+  border-radius: var(--pi-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.pi-my-apps-btn:hover {
+  background: var(--pi-accent);
+  color: #fff;
+}
+
+.pi-my-apps-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--pi-cta);
+  border-radius: 10px;
+}
+
+/* ───────────────────────────────────────────────
+   Unified Bookmark Icon Style – clean outline → filled
+   ─────────────────────────────────────────────── */
+
+/* Card save button (top-right of grid cards) */
+.pi-save-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #94a3b8;               /* light gray / muted when unsaved */
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.15s ease;
+  z-index: 5;
+}
+
+.pi-save-btn:hover {
+  color: var(--pi-accent);      /* navy on hover */
+  transform: scale(1.15);
+}
+
+.pi-save-btn.saved {
+  color: #0f172a;               /* dark navy/black when saved */
+}
+
+.pi-save-btn.saved:hover {
+  color: #1e293b;
+  transform: scale(1.15);
+}
+
+.pi-save-btn svg {
+  width: 20px;
+  height: 24px;
+}
+
+.pi-save-btn svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: fill 0.25s ease;
+}
+
+.pi-save-btn.saved svg path {
+  fill: currentColor;           /* ← this makes it filled when saved */
+}
+
+/* Loading state */
+.pi-save-btn.loading {
+  opacity: 0.5;
+  pointer-events: none;
+  animation: pulse 1.5s infinite;
+}
+
+/* ── Sidebar bookmark/save buttons ── */
+.pi-my-app-save-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.15s;
+}
+
+.pi-my-app-save-btn:hover {
+  color: var(--pi-accent);
+  transform: scale(1.12);
+}
+
+.pi-my-app-save-btn.saved {
+  color: #0f172a;
+}
+
+.pi-my-app-save-btn.saved:hover {
+  color: #1e293b;
+}
+
+.pi-my-app-save-btn svg {
+  width: 18px;
+  height: 22px;
+}
+
+.pi-my-app-save-btn svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: fill 0.25s ease;
+}
+
+.pi-my-app-save-btn.saved svg path {
+  fill: currentColor;
+}
+
+/* Remove solid background from add button too (if you want consistency) */
+.pi-my-app-add-btn {
+  background: transparent !important;
+  border: 1px solid var(--pi-cta) !important;
+  color: var(--pi-cta) !important;
+}
+
+.pi-my-app-add-btn:hover {
+  background: var(--pi-cta) !important;
+  color: white !important;
+}
+
+/* Adjust card header for save button space */
+.pi-card-header {
+  padding-right: 40px;
+}
+
+/* ==================== MY APPS SIDEBAR ==================== */
+
+/* Overlay behind sidebar */
+.pi-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 999998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.pi-sidebar-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* The sidebar panel itself */
+.pi-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  max-width: 600px;
+  min-width: 320px;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--pi-card-bg);
+  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.15);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  overflow: hidden;
+}
+
+.pi-sidebar.open {
+  transform: translateX(0);
+}
+
+/* Sidebar Header */
+.pi-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--pi-border);
+  flex-shrink: 0;
+}
+
+.pi-sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pi-text);
+  margin: 0;
+}
+
+.pi-sidebar-title svg {
+  color: var(--pi-accent);
+}
+
+.pi-sidebar-close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pi-bg);
+  border: none;
+  border-radius: 50%;
+  color: var(--pi-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pi-sidebar-close:hover {
+  background: var(--pi-border);
+  color: var(--pi-text);
+}
+
+/* Sidebar Tabs */
+.pi-sidebar-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 16px 24px;
+  background: var(--pi-bg);
+  border-bottom: 1px solid var(--pi-border-light);
+  flex-shrink: 0;
+}
+
+.pi-sidebar-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--pi-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--pi-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pi-sidebar-tab:hover {
+  color: var(--pi-text);
+  background: var(--pi-hover-bg);
+}
+
+.pi-sidebar-tab.active {
+  color: var(--pi-text);
+  background: var(--pi-card-bg);
+  box-shadow: var(--pi-shadow-sm);
+}
+
+.pi-sidebar-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pi-text-muted);
+  background: var(--pi-border-light);
+  border-radius: 11px;
+}
+
+.pi-sidebar-tab.active .pi-sidebar-tab-count {
+  background: var(--pi-accent-bg);
+  color: var(--pi-accent);
+}
+
+/* Sidebar Content (scrollable area) */
+.pi-sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pi-sidebar-pane {
+  display: none;
+}
+
+.pi-sidebar-pane.active {
+  display: block;
+}
+
+/* Apps Loading */
+.pi-apps-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: var(--pi-text-muted);
+  font-size: 0.875rem;
+}
+
+.pi-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Apps Empty State */
+.pi-apps-empty {
+  text-align: center;
+  padding: 48px 20px;
+}
+
+.pi-apps-empty svg {
+  color: var(--pi-border);
+  margin-bottom: 16px;
+}
+
+.pi-apps-empty h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pi-text);
+  margin: 0 0 8px;
+}
+
+.pi-apps-empty p {
+  font-size: 0.875rem;
+  color: var(--pi-text-muted);
+  margin: 0;
+  max-width: 280px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Apps List */
+.pi-apps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Individual App Card in My Apps */
+.pi-my-app-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  background: var(--pi-bg);
+  border: 1px solid var(--pi-border-light);
+  border-radius: var(--pi-radius-sm);
+  transition: all 0.15s;
+}
+
+.pi-my-app-card:hover {
+  background: var(--pi-hover-bg);
+  border-color: var(--pi-border);
+}
+
+.pi-my-app-card.removing {
+  opacity: 0.5;
+}
+
+.pi-my-app-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pi-my-app-council {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pi-accent);
+  margin-bottom: 4px;
+}
+
+.pi-my-app-title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--pi-text);
+  margin-bottom: 4px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+}
+
+.pi-my-app-add-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pi-cta);
+  border: none;
+  border-radius: var(--pi-radius-sm);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pi-my-app-add-btn:hover {
+  background: var(--pi-cta-dark);
+  transform: scale(1.05);
+}
+
+.pi-my-app-meta {
+  display: flex;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--pi-text-muted);
+}
+
+.pi-my-app-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pi-my-app-save-btn,
+.pi-my-app-remove-btn,
+.pi-my-app-view-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pi-card-bg);
+  border: 1px solid var(--pi-border);
+  border-radius: var(--pi-radius-sm);
+  color: var(--pi-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pi-my-app-save-btn:hover,
+.pi-my-app-view-btn:hover {
+  background: var(--pi-accent-bg);
+  border-color: var(--pi-accent);
+  color: var(--pi-accent);
+}
+
+.pi-my-app-save-btn.saved {
+  background: var(--pi-accent);
+  border-color: var(--pi-accent);
+  color: #fff;
+}
+
+.pi-my-app-remove-btn:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #ef4444;
+}
+
+.pi-my-app-save-btn.loading,
+.pi-my-app-remove-btn.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Responsive adjustments for My Apps Sidebar */
+@media (max-width: 900px) {
+  .pi-sidebar {
+    width: 70%;
+  }
+}
+
+@media (max-width: 640px) {
+  .pi-header-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pi-my-apps-btn {
+    position: static;
+    transform: none;
+    margin-top: 16px;
+  }
+  
+  .pi-sidebar {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .pi-sidebar-tabs {
+    padding: 12px 16px;
+  }
+  
+  .pi-sidebar-tab {
+    padding: 10px 12px;
+    font-size: 0.8125rem;
+  }
+  
+  .pi-sidebar-content {
+    padding: 16px;
+  }
+  
+  .pi-my-app-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .pi-my-app-actions {
+    align-self: flex-end;
+  }
+}
+/* Estimated Price - simple colored text under address */
+.pi-card-est-price {
+    color: #16a34a;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    letter-spacing: -0.01em;
+}
+
+.pi-modal-est-price {
+    color: #16a34a;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 4px 0 12px 0;
+}
+
+/* High Value floating tag - sits on the top right edge of the card */
+.pi-card--high-value {
+    margin-top: 10px;
+}
+
+.pi-high-value-tag {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 4px 12px;
+    border-radius: 9000px;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.35);
+    z-index: 2;
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* High Value tag on map popup */
+.pi-popup-high-value-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 7000px;
+    margin-bottom: 6px;
+    line-height: 1;
+}
+}
