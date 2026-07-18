@@ -1,41 +1,48 @@
 <?php
-// Add a REST filter so planning_app queries are limited to the authorities a user has via PMPro
+// Add a REST filter so planning_app queries are limited to the authorities a user has via PMPro.
+// Defers to rest-filters.php (pmpc_selected_councils) when that meta is set, to avoid double tax_query.
 
 add_filter('rest_post_query', function($args, $request) {
-    // Only act for our post type planning_app endpoints
-    $post_type = $request->get_param('post_type');
-    $route_post_types = $request->get_param('type'); // fallback
-    // If this is a wp/v2 posts REST route, $request->get_params() will include route info.
-    // Simpler approach: check current requested post type via query args or endpoint path
     $route = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-    if (strpos($route, '/wp/v2/planning_app') === false && (empty($post_type) && empty($route_post_types))) {
+    if (strpos($route, '/wp/v2/planning_app') === false) {
         return $args;
     }
 
-    // If PMPro not present, do nothing (or enforce login)
-    if (!function_exists('pmpro_hasMembershipLevel')) {
-        return $args;
-    }
-
-    // Get mapping option
-    $map = get_option(PI_MEM_OPTION, []);
-
-    // Determine allowed term IDs for current user
-    $allowed_term_ids = [];
-
+    // Admins see everything
     $user = wp_get_current_user();
     if ($user && $user->ID && current_user_can('manage_options')) {
         return $args;
     }
+
+    // Not logged in: deny
     if (! $user || ! $user->ID) {
-        // not logged in: default deny (return zero results)
-        // To make page partially public, comment out the next line
         $args['post__in'] = [0];
         return $args;
     }
 
-    // Get current user's active levels (returns array of level objects)
-    if ( function_exists('pmpro_getMembershipLevelsForUser') ) {
+    // If pmpc_selected_councils is set, rest-filters.php already handles restriction.
+    // Deerring avoids two conflicting tax_query clauses on the same taxonomy.
+    $selected = get_user_meta($user->ID, 'pmpc_selected_councils', true);
+    if (!empty($selected) && is_array($selected)) {
+        return $args;
+    }
+
+    // If PMPro not present, deny
+    if (!function_exists('pmpro_hasMembershipLevel')) {
+        $args['post__in'] = [0];
+        return $args;
+    }
+
+    // Get mapping option (level_id => [term_ids])
+    $map = get_option(PI_MEM_OPTION, []);
+    if (empty($map)) {
+        $args['post__in'] = [0];
+        return $args;
+    }
+
+    // Determine allowed term IDs for current user from PMPro levels
+    $allowed_term_ids = [];
+    if (function_exists('pmpro_getMembershipLevelsForUser')) {
         $levels = pmpro_getMembershipLevelsForUser($user->ID);
         if (!empty($levels)) {
             foreach ($levels as $lvl) {
@@ -48,7 +55,6 @@ add_filter('rest_post_query', function($args, $request) {
             }
         }
     } else {
-        // fallback: check pmpro_hasMembershipLevel for each mapped level
         foreach ($map as $level_id => $tids) {
             if (pmpro_hasMembershipLevel(intval($level_id), $user->ID)) {
                 $allowed_term_ids = array_merge($allowed_term_ids, (array)$tids);
@@ -64,7 +70,7 @@ add_filter('rest_post_query', function($args, $request) {
         return $args;
     }
 
-    // Default: add tax_query to limit by authority term IDs
+    // Add tax_query to limit by authority term IDs (only one clause here)
     $tax_query = isset($args['tax_query']) ? $args['tax_query'] : [];
     $tax_query[] = [
         'taxonomy' => 'authority',
@@ -74,18 +80,15 @@ add_filter('rest_post_query', function($args, $request) {
     ];
     $args['tax_query'] = $tax_query;
 
-    // Additionally: if the client requested a specific authority via ?authority=<term_id>
-    // ensure they can't request something outside their allowed set
+    // If the client requested a specific authority, ensure it's within their allowed set
     $req_auth = $request->get_param('authority');
     if ($req_auth) {
         $req_ids = is_array($req_auth) ? array_map('intval', $req_auth) : [intval($req_auth)];
-        // intersection
         $inter = array_intersect($req_ids, $allowed_term_ids);
         if (empty($inter)) {
             $args['post__in'] = [0];
             return $args;
         }
-        // restrict to intersection
         $args['tax_query'][] = [
             'taxonomy' => 'authority',
             'field' => 'term_id',

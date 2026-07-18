@@ -6,6 +6,11 @@ add_action('pre_get_posts', function($query) {
     // Apply only to planning_app archive, taxonomy, or search
     if ($query->get('post_type') !== 'planning_app') return;
 
+    // Admins see all planning apps
+    if (is_user_logged_in() && current_user_can('manage_options')) {
+        return;
+    }
+
     if (!is_user_logged_in()) {
         // non-members see nothing
         $query->set('post__in', [0]);

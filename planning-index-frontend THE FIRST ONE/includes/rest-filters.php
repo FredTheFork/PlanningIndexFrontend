@@ -32,6 +32,23 @@ add_filter('rest_planning_app_query', function($args, $request) {
         $args['post__in'] = [0];
     }
 
+    // If the client requested specific authorities, intersect with allowed
+    $req_auth = $request->get_param('authority');
+    if ($req_auth && !empty($term_ids)) {
+        $req_ids = is_array($req_auth) ? array_map('intval', $req_auth) : array_map('intval', explode(',', $req_auth));
+        $inter = array_intersect($req_ids, $term_ids);
+        if (empty($inter)) {
+            $args['post__in'] = [0];
+            return $args;
+        }
+        $args['tax_query'][] = [
+            'taxonomy' => 'authority',
+            'field'    => 'term_id',
+            'terms'    => array_values($inter),
+            'operator' => 'IN',
+        ];
+    }
+
     // Handle OR-based search for multiple keywords
     $search = $request->get_param('search');
     if (!empty($search)) {
