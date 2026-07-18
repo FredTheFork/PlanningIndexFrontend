@@ -14,6 +14,7 @@ require_once __DIR__ . '/includes/rest-filters.php';
 require_once __DIR__ . '/includes/query-filters.php';
 require_once __DIR__ . '/includes/user-apps-rest.php';
 require_once __DIR__ . '/includes/rest-fields.php';
+require_once __DIR__ . '/includes/apps-rest.php';
 
 
 
