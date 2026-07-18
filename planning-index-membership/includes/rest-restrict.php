@@ -24,6 +24,9 @@ add_filter('rest_post_query', function($args, $request) {
     $allowed_term_ids = [];
 
     $user = wp_get_current_user();
+    if ($user && $user->ID && current_user_can('manage_options')) {
+        return $args;
+    }
     if (! $user || ! $user->ID) {
         // not logged in: default deny (return zero results)
         // To make page partially public, comment out the next line

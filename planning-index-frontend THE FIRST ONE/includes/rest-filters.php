@@ -1,5 +1,8 @@
 <?php
 add_filter('rest_planning_app_query', function($args, $request) {
+    if (is_user_logged_in() && current_user_can('manage_options')) {
+        return $args;
+    }
     if (!is_user_logged_in()) {
         $args['post__in'] = [0];
         return $args;

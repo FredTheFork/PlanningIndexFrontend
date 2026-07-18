@@ -850,7 +850,8 @@
     } catch (err) {
       console.error('Search failed:', err);
       hideSkeleton();
-      showEmpty();
+      $('#pi-results-count').text('Error loading applications. Check browser console.');
+      $('#pi-results').html('<div style="padding:2rem;text-align:center;color:#b91c1c;">Failed to load planning applications. Please refresh the page or check your connection.</div>').show();
     }
   }
 

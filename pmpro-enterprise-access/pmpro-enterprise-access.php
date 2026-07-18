@@ -1331,7 +1331,7 @@ function pmpe_send_team_invite_handler() {
    ENQUEUE SHORTCODE STYLES (for [enterprise_checkout])
 -------------------------------------------- */
 add_action( 'wp_enqueue_scripts', function() {
-    wp_enqueue_style( 'pmpe-enterprise-style', plugin_dir_url(__FILE__) . 'assets/pmpe-checkout.css', ['pmpc-checkout-css'], '2.1' );
+    wp_enqueue_style( 'pmpe-enterprise-style', plugin_dir_url(__FILE__) . 'assets/pmpe-checkout.css', [], '2.1' );
 });
 
 /* --------------------------------------------
