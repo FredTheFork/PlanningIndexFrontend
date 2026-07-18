@@ -34,7 +34,7 @@ add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('mapbox-gl-css', 'https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css', [], '3.0.1');
     wp_enqueue_script('mapbox-gl-js', 'https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js', [], '3.0.1', true);
     
-    wp_enqueue_script('pi-frontend-js', plugin_dir_url(__FILE__) . '../assets/frontend.js', ['jquery'], '3.0', true);
+    wp_enqueue_script('pi-frontend-js', plugin_dir_url(__FILE__) . '../assets/frontend.js', ['jquery'], '3.1', true);
     
     // Get Mapbox token from options (set in WP admin or wp-config.php)
     $mapbox_token = defined('PI_MAPBOX_TOKEN') ? PI_MAPBOX_TOKEN : get_option('pi_mapbox_token', '');

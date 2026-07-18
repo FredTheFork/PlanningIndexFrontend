@@ -1025,6 +1025,73 @@
   }
 
   // -------------------------------
+  // URL Query Parameters (shareable / automatable searches)
+  // -------------------------------
+  function applyUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    const hasAny = ['keyword','authority','category','date_from','date_to','quick','view','sort']
+      .some(k => params.has(k));
+    if (!hasAny) return false;
+
+    if (params.has('keyword')) $('#pi-keyword').val(params.get('keyword') || '');
+    if (params.has('category')) $('#pi-category').val(params.get('category') || '');
+    if (params.has('date_from')) $('#pi-date-from').val(params.get('date_from') || '');
+    if (params.has('date_to')) $('#pi-date-to').val(params.get('date_to') || '');
+    if (params.has('sort')) {
+      const s = params.get('sort');
+      if (['date_desc','date_asc','alpha_asc','alpha_desc'].includes(s)) {
+        currentSort = s;
+        $('#pi-sort').val(s);
+      }
+    }
+    if (params.has('authority')) {
+      const ids = (params.get('authority') || '').split(',').map(s => s.trim()).filter(Boolean);
+      // Authorities may still be loading; apply once options are ready.
+      const apply = () => setSelectedAuthorities(ids);
+      if (authorityOptions.length) apply();
+      else setTimeout(apply, 800);
+    }
+    if (params.has('quick')) {
+      const q = params.get('quick') || '';
+      // Match a quick-chip by its data-filter + data-value, e.g. ?quick=keyword:window door
+      const [filter, ...rest] = q.split(':');
+      const value = rest.join(':');
+      if (filter && value) {
+        const $chip = $('.pi-quick-chip').filter(function() {
+          return $(this).data('filter') === filter && String($(this).data('value')) === value;
+        }).first();
+        if ($chip.length) $chip.addClass('active');
+      }
+    }
+    if (params.has('view') && params.get('view') === 'map') {
+      // Defer until after initial search triggers
+      setTimeout(() => switchView('map'), 0);
+    }
+    updateFilterCount();
+    return true;
+  }
+
+  function updateUrlParams() {
+    if (!window.history || !window.history.replaceState) return;
+    const params = new URLSearchParams();
+    const kw = ($('#pi-keyword').val() || '').trim();
+    if (kw) params.set('keyword', kw);
+    const authorities = getSelectedAuthorities();
+    if (authorities.length) params.set('authority', authorities.join(','));
+    const cat = $('#pi-category').val();
+    if (cat) params.set('category', cat);
+    const df = $('#pi-date-from').val();
+    if (df) params.set('date_from', df);
+    const dt = $('#pi-date-to').val();
+    if (dt) params.set('date_to', dt);
+    if (currentSort !== 'date_desc') params.set('sort', currentSort);
+    if (currentView !== 'grid') params.set('view', currentView);
+    const qs = params.toString();
+    const newUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+    window.history.replaceState(null, '', newUrl);
+  }
+
+    // -------------------------------
   // Quick Filters
   // -------------------------------
   function applyQuickFilter(filterType, value) {
@@ -1469,6 +1536,7 @@
         e.preventDefault();
         $('.pi-quick-chip').removeClass('active');
         search(true);
+        updateUrlParams();
       });
 
       // Enter key in search
@@ -1477,6 +1545,7 @@
           e.preventDefault();
           $('.pi-quick-chip').removeClass('active');
           search(true);
+          updateUrlParams();
         }
       });
 
@@ -1503,6 +1572,7 @@
         $('.pi-quick-chip').removeClass('active');
         updateFilterCount();
         search(true);
+        updateUrlParams();
       });
 
       // Filter change triggers update count
@@ -1564,6 +1634,7 @@
           updateFilterCount();
           search(true);
         }
+        updateUrlParams();
       });
 
       // Sort change
@@ -1572,10 +1643,14 @@
         if (allPosts.length > 0) {
           renderPosts(allPosts);
         }
+        updateUrlParams();
       });
 
-      // Initial search
+      // Apply any URL query parameters (e.g. ?keyword=sash window) then run initial search.
+      const hadUrlParams = applyUrlParams();
       search(true);
+      // Keep the URL in sync with the active filters from here on.
+      if (!hadUrlParams) updateUrlParams();
     }
 
     // View details button
