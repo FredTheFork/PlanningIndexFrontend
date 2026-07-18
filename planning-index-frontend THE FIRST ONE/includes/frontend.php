@@ -11,15 +11,30 @@ add_filter('sgo_js_minify_exclude', function($exclude) {
     $exclude[] = 'pi-frontend-js';
     return $exclude;
 });
+add_filter('sgo_js_async_combine_exclude', function($exclude) {
+    if (!is_array($exclude)) $exclude = [];
+    $exclude[] = 'pi-frontend-js';
+    return $exclude;
+});
+add_filter('sgo_js_lazy_load_exclude', function($exclude) {
+    if (!is_array($exclude)) $exclude = [];
+    $exclude[] = 'pi-frontend-js';
+    return $exclude;
+});
+add_filter('sgo_defer_render_blocking_js_exclude', function($exclude) {
+    if (!is_array($exclude)) $exclude = [];
+    $exclude[] = 'pi-frontend-js';
+    return $exclude;
+});
 
 add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('pi-frontend-css', plugin_dir_url(__FILE__) . '../assets/frontend.css', [], '3.0');
     
-    // Mapbox GL CSS and JS
+    // Mapbox GL CSS and JS (soft dependency — frontend.js guards against it being absent)
     wp_enqueue_style('mapbox-gl-css', 'https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css', [], '3.0.1');
     wp_enqueue_script('mapbox-gl-js', 'https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js', [], '3.0.1', true);
     
-    wp_enqueue_script('pi-frontend-js', plugin_dir_url(__FILE__) . '../assets/frontend.js', ['jquery', 'mapbox-gl-js'], '3.0', true);
+    wp_enqueue_script('pi-frontend-js', plugin_dir_url(__FILE__) . '../assets/frontend.js', ['jquery'], '3.0', true);
     
     // Get Mapbox token from options (set in WP admin or wp-config.php)
     $mapbox_token = defined('PI_MAPBOX_TOKEN') ? PI_MAPBOX_TOKEN : get_option('pi_mapbox_token', '');

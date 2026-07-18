@@ -1,4 +1,8 @@
 (function($) {
+  if (typeof PI_Settings === 'undefined') {
+    console.error('[PI Frontend] PI_Settings not defined. Aborting.');
+    return;
+  }
   const restBase = PI_Settings.rest_base;
   const mapboxToken = PI_Settings.mapbox_token || 'pk.eyJ1IjoicGxhbm5pbmdpbmRleCIsImEiOiJjbWs4ZnZ6MGUxOWg1M2NyNW9xbnZodWx3In0.SOAFHPon69-aJS2G6qAoBQ';
   let page = 1;
@@ -616,7 +620,7 @@
       <article class="pi-card${highValue ? ' pi-card--high-value' : ''}" data-id="${postId}" data-added="${isAdded ? '1' : '0'}" data-saved="${isSaved ? '1' : '0'}">
         <div class="pi-card-inner">
         ${highValue ? `<span class="pi-high-value-tag">High Value</span>` : ''}
-        <button class="pi-save-btn${isSaved ? ' saved' : ''}" title="${isSaved ? 'Remove from saved' : 'Save for later'}">
+        <button class="pi-save-btn${isSaved ? ' saved' : ''}" data-postid="${postId}" title="${isSaved ? 'Remove from saved' : 'Save for later'}">
           <svg width="20" height="24" viewBox="0 0 20 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
           </svg>
@@ -1091,6 +1095,15 @@
       return;
     }
 
+    if (typeof mapboxgl === 'undefined') {
+      console.warn('[PI Frontend] Mapbox GL not loaded. Map view disabled.');
+      $('#pi-map-loading').hide();
+      $('#pi-map-no-token').find('p').text('Map library failed to load. Check your network connection.');
+      $('#pi-map-no-token').show();
+      $('#pi-view-toggle .pi-view-btn[data-view="map"]').hide();
+      return;
+    }
+
     mapboxgl.accessToken = mapboxToken;
 
     try {
@@ -1427,112 +1440,6 @@
     $(document).on('click', '.pi-view-btn', function() {
       const view = $(this).data('view');
       switchView(view);
-    });
-
-    // Save button click (on cards)
-    $(document).on('click', '.pi-save-btn', async function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const $btn = $(this);
-      const postId = $btn.data('postid');
-      
-      $btn.addClass('loading');
-      
-      if (userSavedApps.has(String(postId))) {
-        await unsaveApp(postId);
-      } else {
-        await saveApp(postId);
-      }
-      
-      $btn.removeClass('loading');
-    });
-
-    // My Apps panel handlers
-    $('#pi-open-my-apps').on('click', function() {
-      openMyAppsPanel();
-    });
-
-    $('#pi-my-apps-close, #pi-my-apps-panel').on('click', function(e) {
-      if (e.target === this || $(this).is('#pi-my-apps-close')) {
-        closeMyAppsPanel();
-      }
-    });
-
-    // Prevent clicks inside the modal from closing it
-    $('#pi-my-apps-panel .pi-modal').on('click', function(e) {
-      e.stopPropagation();
-    });
-
-    // Tab switching
-    $(document).on('click', '.pi-tab', function() {
-      const tab = $(this).data('tab');
-      switchMyAppsTab(tab);
-    });
-
-    // Save from recent apps list
-    $(document).on('click', '.pi-my-app-save-btn', async function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const $btn = $(this);
-      const postId = $btn.data('postid');
-      
-      if (!userSavedApps.has(String(postId))) {
-        $btn.addClass('loading');
-        await saveApp(postId);
-        $btn.removeClass('loading').addClass('saved').html(`
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-          </svg>
-        `);
-      }
-    });
-
-    // Remove from saved apps list
-    $(document).on('click', '.pi-my-app-remove-btn', async function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const $btn = $(this);
-      const postId = $btn.data('postid');
-      const $card = $btn.closest('.pi-my-app-card');
-      
-      $card.addClass('removing');
-      await unsaveApp(postId);
-      $card.slideUp(200, function() {
-        $(this).remove();
-        // Update count
-        $('#pi-saved-count').text(userSavedAppsData.length);
-        if (userSavedAppsData.length === 0) {
-          $('#pi-saved-empty').show();
-        }
-      });
-    });
-
-    // View app from My Apps panel
-    $(document).on('click', '.pi-my-app-view-btn', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const postId = $(this).data('postid');
-      
-      // Get the app data and add to allPosts if not there
-      const savedApp = userSavedAppsData.find(a => String(a.id) === String(postId));
-      const recentApp = userRecentAppsData.find(a => String(a.id) === String(postId));
-      const appData = savedApp || recentApp;
-      
-      if (appData && !allPosts.find(p => String(p.id) === String(postId))) {
-        // Add to allPosts temporarily so modal can display it
-        allPosts.push({
-          id: appData.id,
-          title: { rendered: appData.title },
-          meta: appData.meta,
-          content: { rendered: appData.content || '' },
-          _authority_name: appData._authority_name
-        });
-      }
-      
-      closeMyAppsPanel();
-      setTimeout(() => {
-        openModal(postId, true); // Skip tracking since they're accessing from saved/recent
-      }, 100);
     });
 
     // Map popup event handlers (delegated)
